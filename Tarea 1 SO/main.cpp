@@ -47,12 +47,12 @@ int numelem(Tlista& lista)
     int i = 0;
     while (q != NULL)
     {
-        q->jobs.mostrarjob();
         q = q->sgte;
         i++;
     }
     return i;
 }
+
 int main()
 {
     Tlista lista = NULL;
@@ -64,5 +64,13 @@ int main()
         insertarFinal(lista, t1);
         cout << "Desea seguir ingresando datos? 1 = Si, 0 = No" << endl; cin >> ver;
     }
-    cout << "el numero de trabajos es: " << numelem(lista);
+    const int n = numelem(lista);
+    job j1[n];
+    Tlista q = lista;
+    for (int i = 0; q != NULL; i++)
+    {
+        j1[i] = q->jobs;
+        q = q->sgte;
+    }
+    //ola
 }
