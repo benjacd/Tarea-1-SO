@@ -14,5 +14,7 @@ public:
 	void mostrarjob();
 	bool getver() { return ver; };
 	void setver(bool verr) { ver = verr; };
+	float getTLL() { return TLL; };
+	char getID() { return ID; };
 };
 

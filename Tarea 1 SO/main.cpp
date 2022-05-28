@@ -52,7 +52,19 @@ int numelem(Tlista& lista)
     }
     return i;
 }
-
+void FCFS(job j1[], int n)
+{
+    int pos;
+    for (int i = 0; i < n; i++)
+    {
+        for (int i = 0; i < n; i++)
+        {
+          float aux=10000;
+          if (j1[i].getTLL() < aux && j1[i].getver() != 0) { aux = j1[i].getTLL(); pos = i; }
+        }
+        j1[pos].setver(0); cout << "" << j1[pos].getID();
+    }
+}
 int main()
 {
     Tlista lista = NULL;
@@ -64,13 +76,15 @@ int main()
         insertarFinal(lista, t1);
         cout << "Desea seguir ingresando datos? 1 = Si, 0 = No" << endl; cin >> ver;
     }
-    const int n = numelem(lista);
-    job j1[n];
+
+    int n = numelem(lista);
+    job *j1;
+    j1 = new job[n];
     Tlista q = lista;
     for (int i = 0; q != NULL; i++)
     {
         j1[i] = q->jobs;
         q = q->sgte;
     }
-    //ola
+    FCFS(j1, n);
 }
