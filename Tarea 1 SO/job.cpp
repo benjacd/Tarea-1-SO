@@ -8,6 +8,7 @@ void job::crearjob()
 	cout << "Ingrese el tiempo de llegada: " << endl; cin >> TLL;
 	cout << "Ingrese el tiempo de rafaga: " << endl; cin >> TR;
 	RR = TR; 
+	ta = TLL;
 };
 void job::mostrarjob()
 {

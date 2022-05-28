@@ -54,7 +54,8 @@ int numelem(Tlista& lista)
 }
 void FCFS(job j1[], int n)
 {
-    int pos;
+    int pos,ver=0;
+    float taux, tsaux;
     for (int i = 0; i < n; i++)
     {
         for (int i = 0; i < n; i++)
@@ -62,7 +63,17 @@ void FCFS(job j1[], int n)
           float aux=10000;
           if (j1[i].getTLL() < aux && j1[i].getver() != 0) { aux = j1[i].getTLL(); pos = i; }
         }
-        j1[pos].setver(0); cout << "" << j1[pos].getID();
+        if (ver == 0) {
+        taux = j1[pos].getta(); cout << taux; 
+        cout << "|" << j1[pos].getID(); tsaux = taux + j1[pos].getTR(); j1[pos].setts(tsaux);
+        cout << "|" << tsaux; ver = 1;
+        }
+        else
+        { 
+            taux = tsaux; j1[pos].setta(taux);  tsaux = taux + j1[pos].getTR(); j1[pos].setts(tsaux);
+            cout << "|" << j1[pos].getID();  cout << "|" << tsaux;
+        }
+        j1[pos].setver(0);
     }
 }
 int main()
