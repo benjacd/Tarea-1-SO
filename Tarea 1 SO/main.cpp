@@ -58,9 +58,9 @@ void FCFS(job j1[], int n)
     float taux, tsaux;
     for (int i = 0; i < n; i++)
     {
+        float aux = 10000;
         for (int i = 0; i < n; i++)
         {
-          float aux=10000;
           if (j1[i].getTLL() < aux && j1[i].getver() != 0) { aux = j1[i].getTLL(); pos = i; }
         }
         if (ver == 0) {
@@ -74,6 +74,11 @@ void FCFS(job j1[], int n)
             cout << "|" << j1[pos].getID();  cout << "|" << tsaux;
         }
         j1[pos].setver(0);
+    }
+    cout << endl; 
+    for (int i = 0; i < n; i++)
+    {
+        cout << j1[i].getID()<<" | tt = "<<j1[i].getts()-j1[i].getTLL()<<"| wt = "<<j1[i].getta()-j1[i].getTLL()<<"|"<<endl;
     }
 }
 int main()
