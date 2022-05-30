@@ -4,9 +4,8 @@
 using namespace std;
 void job::crearjob()
 {
-	cout << "Ingrese el id del trabajo: " << endl; cin >> ID;
-	cout << "Ingrese el tiempo de llegada: " << endl; cin >> TLL;
-	cout << "Ingrese el tiempo de rafaga: " << endl; cin >> TR;
+	cout << "Para el trabajo [" << ID << "] Ingrese el:" << endl;
+	cout << "tiempo de llegada y el de rafaga formato x y (separados por un espacio): " << endl; cin >> TLL >> TR;
 	RR = TR; 
 	ta = TLL;
 };

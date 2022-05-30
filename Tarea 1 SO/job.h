@@ -8,7 +8,7 @@ class job
 private:
 	char ID;
 	float TLL, TR, RR;
-	bool ver = 1;
+	bool ver = false;
 	float ta, ts;
 public:
 	void crearjob();
@@ -22,5 +22,8 @@ public:
 	void setts(float tss) { ts = tss; };
 	float getts() { return ts; };
 	float getTR() { return TR; };
+	void setRR(float RRR) { RR=RRR; };
+	float getRR() { return RR; };
+	void setID(char idd) { ID = idd; };
 };
 
