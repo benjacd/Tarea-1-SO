@@ -61,7 +61,8 @@ void imprimir_resultados(job j1[], int n) //imprime los resultados
     cout << endl;
     for (int i = 0; i < n; i++)
     {
-        cout << "|" << j1[i].getID() << " | tt = " << j1[i].getts() - j1[i].getTLL() << "| wt = " << j1[i].getta() - j1[i].getTLL() << "|" << endl;
+       cout << "|" << j1[i].getID() << " | tt = " << j1[i].getts() - j1[i].getTLL() << "| wt = " << j1[i].getta() - j1[i].getTLL() << "|" << endl;
+
     }
 }
 void ordenaTLL(job j1[], int n)
@@ -96,7 +97,6 @@ void ordenaTRR(job j1[], int n)
         }
     }
 }
-
 void FCFS(job j2[], int n)
 {
     job* j1; j1 = new job[n]; j1 = j2;
@@ -113,7 +113,6 @@ void SJFA(job j2[], int n)
     ordenaTRR(j1, n);
     imprimir_resultados(j1, n);
 }
-
 int buscarmenor(job j1[], int n)
 {
     int pos = 0;
@@ -124,12 +123,12 @@ int buscarmenor(job j1[], int n)
     }
     return pos;
 }
-void SJFNA(job j2[], int n)
+void SJFNA(job j2[] , int n)
 {
     job* j1; j1 = new job[n]; j1 = j2;
     job jaux;
     Tlista lista = NULL;
-    int ver = 1,complete = n,pos=0,current_time=0;
+    int ver = 1,complete = n,pos=0;
     float cr = 0,tsaux;
     cout << j1[0].getta() << "|" << j1[0].getID() << "|";
     while (complete != 0)
@@ -141,8 +140,8 @@ void SJFNA(job j2[], int n)
                 tsaux = j1[i].getTLL(); cr = j1[pos].getRR() - (tsaux - j1[pos].getta());
                 if (j1[i].getRR() < cr) // Rafaga del entrante es menor a rafaga remanente del actual
                 {
-                    j1[pos].setts(tsaux); j1[pos].setRR(cr); j1[i].setta(tsaux); 
-                    insertarFinal(lista, j1[pos]);
+                    j1[pos].setts(tsaux);  j1[i].setta(tsaux); 
+                    insertarFinal(lista, j1[pos]); j1[pos].setRR(cr);
                     if (j1[pos].getRR() == 0) { complete--; j1[pos].setver(true); }
                     pos = i;
                 }
@@ -150,14 +149,41 @@ void SJFNA(job j2[], int n)
         }
         if (j1[pos].getver() == false)
         {
-            tsaux = j1[pos].getta() + j1[pos].getRR(); j1[pos].setts(tsaux);
-            j1[pos].setRR(0); complete--; j1[pos].setver(true);
+            tsaux = j1[pos].getta() + j1[pos].getRR(); j1[pos].setts(tsaux); j1[pos].setver(true);
             insertarFinal(lista, j1[pos]);
+            j1[pos].setRR(0); complete--; 
             pos = buscarmenor(j1, n);
         }
     }
-    mostrarlista(lista);
+    int nn = numelem(lista); job* j3; j3 = new job[n];     Tlista q = lista;
+    for (int i = 0; q != NULL; i++)
+    {
+        j3[i] = q->jobs;
+        q = q->sgte;
+    }
+    cout << j3[0].getts();
+    
+    for (int i = 1; i < nn; i++)           //ordena correctamente los ts y ta
+    {
+        j3[i].setta(j3[i - 1].getts()); 
+        if (j3[i].getRR() != 0) { j3[i].setts(j3[i].getta() + j3[i].getRR()); }
+        else
+        {j3[i].setts(j3[i].getta() + j3[i].getTR());}
+    }
+    
+    for (int i = 1; i < nn; i++) //imprime correctamente los ts y ta
+    {
+        cout << "|" << j3[i].getID() << "|" << j3[i].getts();
+    }
+    cout << endl;
+    for (int i = 0; i < nn; i++) //imprime tt y wt
+    {
+        if(j3[i].getver()==true)
+        cout << "|" << j3[i].getID() << " | tt = " << j3[i].getts() - j3[i].getTLL() << "| wt = " << j3[i].getta() - j3[i].getTLL() << "|" << endl;
+    }
+    
 }
+
 int main()
 {
     Tlista lista = NULL;
