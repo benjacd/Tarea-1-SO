@@ -12,6 +12,7 @@ void job::crearjob()
 void job::mostrarjob()
 {
 	cout << "El id del trabajo: " << ID <<endl; 
-	cout << "El tiempo de llegada: " << TLL <<endl; 
-	cout << "El tiempo de rafaga: " << TR <<endl; 
+	//cout << "El tiempo de llegada: " << TLL <<endl; 
+	//cout << "El tiempo de rafaga: " << TR <<endl; 
+	cout << "La rafaga remanente es: " << RR <<endl; 
 }

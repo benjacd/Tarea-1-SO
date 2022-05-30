@@ -114,23 +114,49 @@ void SJFA(job j2[], int n)
     imprimir_resultados(j1, n);
 }
 
+int buscarmenor(job j1[], int n)
+{
+    int pos = 0;
+    float aux = 10000;
+    for (int i = 0; i < n; i++)
+    {
+        if (j1[i].getRR() < aux && j1[i].getver() != true ) { aux = j1[i].getRR(); pos = i; }
+    }
+    return pos;
+}
 void SJFNA(job j2[], int n)
 {
     job* j1; j1 = new job[n]; j1 = j2;
     job jaux;
     Tlista lista = NULL;
-    int ver = 1,complete = n,pos=0;
+    int ver = 1,complete = n,pos=0,current_time=0;
     float cr = 0,tsaux;
     cout << j1[0].getta() << "|" << j1[0].getID() << "|";
-    ordenaTRR(j1, n);
     while (complete != 0)
     {
         for (int i = 0; i < n; i++)
         {
-
+            if (j1[i].getver() == false && j1[i].getRR() < j1[pos].getRR())//Verifica si hay alguno con rafaga menor
+            {
+                tsaux = j1[i].getTLL(); cr = j1[pos].getRR() - (tsaux - j1[pos].getta());
+                if (j1[i].getRR() < cr) // Rafaga del entrante es menor a rafaga remanente del actual
+                {
+                    j1[pos].setts(tsaux); j1[pos].setRR(cr); j1[i].setta(tsaux); 
+                    insertarFinal(lista, j1[pos]);
+                    if (j1[pos].getRR() == 0) { complete--; j1[pos].setver(true); }
+                    pos = i;
+                }
+            }
         }
-
+        if (j1[pos].getver() == false)
+        {
+            tsaux = j1[pos].getta() + j1[pos].getRR(); j1[pos].setts(tsaux);
+            j1[pos].setRR(0); complete--; j1[pos].setver(true);
+            insertarFinal(lista, j1[pos]);
+            pos = buscarmenor(j1, n);
+        }
     }
+    mostrarlista(lista);
 }
 int main()
 {
