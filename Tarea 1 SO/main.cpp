@@ -2,6 +2,16 @@
 #include<string>
 #include <stdlib.h>
 #include "job.h"
+
+/* 
+
+    Integrantes:
+    - Renato Soto
+    - Benjamín Castro
+    - José Aynaya
+
+
+*/
 using namespace std;
 
 struct nodo {
